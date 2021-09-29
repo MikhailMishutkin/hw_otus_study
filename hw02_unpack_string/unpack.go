@@ -1,33 +1,53 @@
-package hw02unpackstring
+package main
 
 import (
 	"errors"
+	"fmt"
+	"log"
+
 	"strconv"
 	"strings"
 	"unicode"
-
-	"github.com/Quasilyte/concat"
 )
 
 var ErrInvalidString = errors.New("invalid string")
 
 func Unpack(s string) (string, error) {
 
-	var result string
-	for i, r := range s {
+	var result strings.Builder // инициализирую переменную встроенного типа билдер для хранения результата распаковки
+	var d rune
+	for i, r := range s { //проходим по строке
 		var res string
-		if unicode.IsDigit(r) == true {
+
+		k := rune(s[i])
+		l := rune(s[0])
+		if unicode.IsDigit(l) == true {
+			log.Fatal(ErrInvalidString)
+		}
+		if unicode.IsDigit(k) == true { // проверяем значение цифра или нет
 			dig, err := strconv.Atoi(string(s[i]))
 			if err != nil {
 				errors.New("not a digit")
 			}
-			res = strings.Repeat(string(s[i-1]), dig)
+			res = strings.Repeat(string(d), dig) // повторяем предыдущее буквенное значение dig раз, записываем в промежуточную переменную
 		} else {
-			res = string(r)
+			res = string(r) // записываем букву в промежуточную переменную
 		}
+		if unicode.IsDigit(k) == true && unicode.IsDigit(d) == true {
+			log.Fatal(ErrInvalidString)
+		}
+		d = k
 
-		result = concat.Strings(result, res)
+		result.WriteString(res)
 	}
+
 	// Place your code here.
-	return result, nil
+	return result.String(), nil
+}
+
+func main() {
+	var s string
+	fmt.Println("Введите символьную строку для распаковки")
+	fmt.Scan(&s)
+	fmt.Println(Unpack(s))
 }

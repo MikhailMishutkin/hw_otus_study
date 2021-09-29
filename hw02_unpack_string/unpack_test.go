@@ -5,6 +5,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/require"
+	"hw02unpackstring/hw02_unpack_string"
 )
 
 func TestUnpack(t *testing.T) {
