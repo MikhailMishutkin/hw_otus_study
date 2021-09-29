@@ -4,8 +4,8 @@ import (
 	"errors"
 	"testing"
 
+	"github.com/hw_otus_study/hw02_unpack_string"
 	"github.com/stretchr/testify/require"
-	"hw_otus_study/hw02_unpack_string"
 )
 
 func TestUnpack(t *testing.T) {
