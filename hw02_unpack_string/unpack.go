@@ -1,8 +1,7 @@
-package main
+package hw02unpackstring
 
 import (
 	"errors"
-	"fmt"
 	"log"
 
 	"strconv"
@@ -43,11 +42,4 @@ func Unpack(s string) (string, error) {
 
 	// Place your code here.
 	return result.String(), nil
-}
-
-func main() {
-	var s string
-	fmt.Println("Введите символьную строку для распаковки")
-	fmt.Scan(&s)
-	fmt.Println(Unpack(s))
 }
