@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/MikhailMishutkin/hw_otus_study/hw02_unpack_string"
+	"github.com/MikhailMishutkin/hw_otus_study/hw02_unpack_string/unpack"
 )
 
 func main() {
