@@ -3,7 +3,6 @@ package unpack
 import (
 	"errors"
 	"log"
-
 	"strconv"
 	"strings"
 	"unicode"
@@ -28,7 +27,7 @@ func Unpack(s string) (string, error) {
 			if err != nil {
 				errors.New("not a digit")
 			}
-			res = strings.Repeat(string(d), dig) // повторяем предыдущее буквенное значение dig раз, записываем в промежуточную переменную
+			res = strings.Repeat(string(d), dig-1) // повторяем предыдущее буквенное значение dig-1 раз, записываем в промежуточную переменную
 		} else {
 			res = string(r) // записываем букву в промежуточную переменную
 		}

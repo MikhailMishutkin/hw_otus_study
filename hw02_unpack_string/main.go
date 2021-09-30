@@ -9,6 +9,6 @@ func main() {
 	var s string
 	fmt.Println("Введите символьную строку для распаковки")
 	fmt.Scan(&s)
-	a := hw02unpackstring.Unpack(s)
+	a, _ := unpack.Unpack(s)
 	fmt.Println(a)
 }
