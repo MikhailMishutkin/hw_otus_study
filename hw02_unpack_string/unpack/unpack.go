@@ -20,6 +20,8 @@ func Unpack(s string) (string, error) {
 		switch {
 		case unicode.IsDigit(l):
 			log.Fatal(ErrInvalidString)
+		case unicode.IsDigit(k) && unicode.IsDigit(d):
+			log.Fatal(ErrInvalidString)
 		case unicode.IsDigit(k) && k == '0':
 			result = res2
 		case unicode.IsDigit(k) && k == '1':
@@ -31,8 +33,6 @@ func Unpack(s string) (string, error) {
 			}
 			result = res2                        // присваиваем предпредыдущий результат
 			res = strings.Repeat(string(d), dig) // повторяем предыдущее буквенное значение dig раз, записываем в промежуточную переменную
-		case unicode.IsDigit(k) && unicode.IsDigit(d):
-			log.Fatal(ErrInvalidString)
 		default:
 			res = string(r) // записываем букву в промежуточную переменную
 			res2 = res1
