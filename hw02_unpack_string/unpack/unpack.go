@@ -19,9 +19,9 @@ func Unpack(s string) (string, error) {
 		l := rune(s[0]) // первый элемент, который может вызвать ошибку
 		switch {
 		case unicode.IsDigit(l):
-			return "Неудача, ссорян", ErrInvalidString
+			return log.Fatal(ErrInvalidString)
 		case unicode.IsDigit(k) && unicode.IsDigit(d):
-			return "Неудача, ссорян", ErrInvalidString
+			log.Fatal(ErrInvalidString)
 		case unicode.IsDigit(k) && k == '0':
 			result = res2
 		case unicode.IsDigit(k) && k == '1':
