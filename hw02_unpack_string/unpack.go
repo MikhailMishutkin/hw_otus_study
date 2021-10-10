@@ -13,7 +13,7 @@ var ErrInvalidString = errors.New("invalid string")
 func Unpack(s string) (string, error) {
 	// инициализирую переменную встроенного типа
 	// билдер для хранения результатов распаковки(в том числе промежуточных)
-	var result, lastResult, secondToLast strings.Builder
+	var result, lastResult, penultimate strings.Builder
 	var d rune
 	for i, r := range s { // проходим по строке
 		// внутрицикловая переменная для построения результирующей строки
@@ -28,7 +28,7 @@ func Unpack(s string) (string, error) {
 		case unicode.IsDigit(k) && unicode.IsDigit(d):
 			return "Неудача, ссорян", ErrInvalidString
 		case unicode.IsDigit(k) && k == '0':
-			result = secondToLast
+			result = penultimate
 		case unicode.IsDigit(k) && k == '1':
 			result = lastResult
 		case unicode.IsDigit(k):
@@ -37,18 +37,18 @@ func Unpack(s string) (string, error) {
 				log.Fatal()
 			}
 			// присваиваем предпредыдущий результат
-			result = secondToLast
+			result = penultimate
 			// повторяем предыдущее буквенное
 			// значение dig раз, записываем в промежуточную переменную
 			res = strings.Repeat(string(d), dig)
 		default:
 			// записываем букву в промежуточную переменную
 			res = string(r)
-			secondToLast = lastResult
+			penultimate = lastResult
 		}
 		d = k
 		result.WriteString(res)
-		secondToLast = lastResult
+		penultimate = lastResult
 		lastResult = result
 	}
 	return result.String(), nil
