@@ -13,7 +13,7 @@ var ErrInvalidString = errors.New("invalid string")
 func Unpack(s string) (string, error) {
 	// инициализирую переменную встроенного типа
 	// билдер для хранения результатов распаковки(в том числе промежуточных)
-	var result, resultBefore, resultBeforeLast strings.Builder
+	var result, lastResult, secondToLast strings.Builder
 	var d rune
 	for i, r := range s { // проходим по строке
 		// внутрицикловая переменная для построения результирующей строки
@@ -28,28 +28,28 @@ func Unpack(s string) (string, error) {
 		case unicode.IsDigit(k) && unicode.IsDigit(d):
 			return "Неудача, ссорян", ErrInvalidString
 		case unicode.IsDigit(k) && k == '0':
-			result = resultBeforeLast
+			result = secondToLast
 		case unicode.IsDigit(k) && k == '1':
-			result = resultBefore
+			result = lastResult
 		case unicode.IsDigit(k):
 			dig, err := strconv.Atoi(string(s[i]))
 			if err != nil {
 				log.Fatal()
 			}
 			// присваиваем предпредыдущий результат
-			result = resultBeforeLast
+			result = secondToLast
 			// повторяем предыдущее буквенное
 			// значение dig раз, записываем в промежуточную переменную
 			res = strings.Repeat(string(d), dig)
 		default:
 			// записываем букву в промежуточную переменную
 			res = string(r)
-			resultBeforeLast = resultBefore
+			secondToLast = lastResult
 		}
 		d = k
 		result.WriteString(res)
-		resultBeforeLast = resultBefore
-		resultBefore = result
+		secondToLast = lastResult
+		lastResult = result
 	}
 	return result.String(), nil
 }
